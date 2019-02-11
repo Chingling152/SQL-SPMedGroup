@@ -5,8 +5,8 @@
 # Sumario  
 **1. [Banco de dados](#Banco-de-dados)**  
  * **1.1. [Sobre](#Sobre)**  
-  1.1.1. [Arquitetura](#Arquitetura)
-  1.1.2 [Ordem dos arquivos](#Ordem-dos-arquivos)
+  1.1.1. [Arquitetura](#Arquitetura)  
+  1.1.2 [Ordem dos arquivos](#Ordem-dos-arquivos)  
  
 * **1.2. [Tabelas](#Tabelas)**  
   1.2.1 [Alterando tabelas](#Alterando-tabelas)  
@@ -28,8 +28,8 @@
   1.5.1. [Views existentes](#Views-existentes)  
   1.5.2. [Views globais](#Views-globais)  
   
-* **1.6. [Procedures](#Procedures)**  
-  1.6.1. [Por que Procedures?](#Por-que-usar-Procedures?)
+* **1.6. [Procedures](#Procedures)**   
+  1.6.1. [Por que Procedures?](#Por-que-usar-Procedures?)  
   1.6.2. [Procedures existentes](#Procedures-existentes)
   
 # Banco de dados  
