@@ -14,4 +14,5 @@ INSERT INTO Tipo_Usuario VALUES('Administrador'),('Medico'),('Paciente');
 INSERT INTO StatusConsulta VALUES('Em espera'),('Confirmado'),('Feita');
 
 -- Administrador padrão
+INSERT INTO Usuario(EMAIL,SENHA,ID_TIPO_USUARIO) VALUES('Administrador','123456778',1);
 INSERT INTO Administrador(ID_USUARIO,NOME)VALUES (1,'Administrador');
