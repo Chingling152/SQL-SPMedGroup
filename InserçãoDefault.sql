@@ -8,7 +8,10 @@
 INSERT INTO Especialidade(NOME) VALUES ('Cardiologia'),('Oftamologia'),('Radiologia');
 
 -- Tipos de usuario padrão
-INSERT INTO TipoUsuario VALUES('Administrador','Medico','Paciente');
+INSERT INTO Tipo_Usuario VALUES('Administrador'),('Medico'),('Paciente');
 
 -- Status da consulta
-INSERT INT StatusConsulta VALUES('Em espera','Confirmado','Feita');
+INSERT INTO StatusConsulta VALUES('Em espera'),('Confirmado'),('Feita');
+
+-- Administrador padrão
+INSERT INTO Administrador(ID_USUARIO,NOME)VALUES (1,'Administrador');
