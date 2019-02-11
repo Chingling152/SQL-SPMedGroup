@@ -39,10 +39,12 @@
 ### Arquitetura  
 
 ### Ordem dos arquivos  
+
+### Ordem dos arquivos  
 Os arquivos iniciais tem um padrão a ser executado e o padrão é
 1. Criação das tabelas : [Criação.sql](https://github.com/Chingling152/SQL-SPMedgroup/blob/master/Cria%C3%A7%C3%A3o.sql "Criação.sql")
-2. Criação dos Procedures :
-3. Criação das Views : 
+2. Criação das Views : 
+3. Criação dos Procedures :
 4. Valores padrão (opcional) : [InserçãoDefault.sql](https://github.com/Chingling152/SQL-SPMedgroup/blob/master/Inser%C3%A7%C3%A3oDefault.sql "InserçãoDefault.sql")
 
 ## Tabelas  
@@ -71,8 +73,8 @@ Então, pra facilitar o seu trabalho aqui tem uma tabela de prioridades (Ordem c
 
 1. Tipo De Usuario \ Especialidade \ Clinica  
 2. Usuario  
-3. Administrador \ Paciente \ Medico  
-4. Tipo de Consulta  
+3. Paciente \ Medico  
+4. Clinica  
 5. Consulta  
 
 #### Exemplo : 
@@ -93,8 +95,42 @@ Inserir dados diretamente usando **INSERT** pode deixar o codigo confuso, veja [
 ### Funções do usuario
 
 ## Views  
-
+Views filtram suas seleções
 ### Views existentes   
+Aqui ficarão todas as views e tudo que cada uma delas retorna.  
+Views sempre retornam todos os valores da tabela, elas apenas filtram o que será enviado
+- **VerMedicos**  
+  - ID
+  - Nome  
+  - Email  
+  - Especialização  
+  - Nivel de privilegio  
+  - CRM  
+  - Nome da clinica onde ele trabalha  
+  - Especialidade  
+- **VerPacientes** 
+  - ID  
+  - Nome  
+  - Email  
+  - Privilegios  
+  - CPF  
+  - Telefone  
+  - Data de nascimento  
+- **VerConsultas**
+  -  ID da consulta  
+  - Nome do Medico  
+  - Nome do paciente  
+  - Nome da clinica   
+  - Endereço da clinica  
+  - Especialização do medico  
+  - Data da consulta  
+  - Descrição  
+- **VerClinicas**  
+  - Nome fantasia  
+  - Razão social  
+  - Endereço  
+   - Numero  
+  - CEP  
 ### Views globais   
 
 ## Procedures  
