@@ -64,5 +64,5 @@ END
 CREATE PROCEDURE ProcurarClinicaPorID @ID INT
 AS 
 BEGIN
-SELECT * FROM ProcurarClinicas WHERE ID = @ID;
+SELECT * FROM VerClinicas WHERE ID = @ID;
 END
