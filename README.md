@@ -27,7 +27,8 @@
   1.5.1. [Views existentes](#Views-existentes)  
   
 * **1.6. [Procedures](#Procedures)**   
-  1.6.2. [Procedures existentes](#Procedures-existentes)  
+  1.6.1. [Procedures de visualização](#Procedures-de-visualização)  
+  1.6.2. [Procedures de inserção](#Procedures-de-inserção)  
   
 **2. [Modelagem](#Modelagem)**  
  * **2.1. [Modelo descritivo](#Modelo-descritivo)**  
@@ -110,6 +111,7 @@ Views sempre retornam  valores da tabela, mas filtram o que será enviado.
   - CRM  
   - Nome da clinica onde ele trabalha  
   - Especialidade  
+  
 - **VerPacientes** 
   - ID  
   - Nome  
@@ -118,6 +120,7 @@ Views sempre retornam  valores da tabela, mas filtram o que será enviado.
   - CPF  
   - Telefone  
   - Data de nascimento  
+  
 - **VerConsultas**
   -  ID da consulta  
   - Nome do Medico  
@@ -127,6 +130,7 @@ Views sempre retornam  valores da tabela, mas filtram o que será enviado.
   - Especialização do medico  
   - Data da consulta  
   - Descrição  
+    
 - **VerClinicas**  
   - Nome fantasia  
   - Razão social  
@@ -136,10 +140,9 @@ Views sempre retornam  valores da tabela, mas filtram o que será enviado.
 
 ## Procedures  
 Procedures são pequenas funções que executam um certo grupo de comandos, nesse banco de dados há varios procedures. Desde procedures apenas para visualização de dados, até procedures para inserção , alteração e remoção de dados.  
-
-### Procedures existentes  
 Os procedures do banco tem funções bem especificas, porisso são bastante limitados( A maioria deles apenas retorna um registro em um indice especifico).Mas eles cumprem bem suas funções.
 
+### Procedures de visualização  
 ----------
 #### Utilizam a View **[VerMedicos](#Views-existentes)**.  
 * **ProcurarMedicoPorID** -> Recebe um : numero inteiro(ID)  
@@ -167,3 +170,15 @@ Retorna *TODOS*  os dados da View **VerPacientes** no usuario com o CPF
 #### **Utilizam a View [VerClinicas](#Views-existentes)**.  
 
 #### **Utilizam a View [VerConsultas](#Views-existentes)**.  
+
+### Procedures de inserção
+Procedures de inserção facilitam o trabalho e garantem que os dados serão inseridos corretamente, **Exemplo** : o Procedure para criação de paciente ja cria um usuario e cria o paciente ja anexado ao usuario.  
+* **Criar paciente** 
+*Parametros* :  
+  *  Email : Texto (até 200 caracteres)  
+  *  Senha : Texto (até 200 caracteres)  
+  *  Nome : Texto (até 200 caracteres)  
+  * CPF : Texto (Recomendado numeros) de 11 caracteres  
+  * RG : Texto (Recomendado numeros) de 9 caracteres  
+  *  Telefone : Texto (Recomendado numeros) de 11 caracteres  
+  * Data de nascimento : Uma data valida (ano/mes/dia)  
