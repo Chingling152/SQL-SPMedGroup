@@ -2,7 +2,7 @@
 ***INSERT Iniciais **
 ********************/
 /* 
- Importe os valores do arquivo Modelo_de_dados
+ Importe os valores do arquivo Modelo_de_dados.xlsx
 */
 -- Tipos de usuario padrão
 INSERT INTO Tipo_Usuario VALUES('Administrador'),('Medico'),('Paciente');

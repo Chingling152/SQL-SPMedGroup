@@ -16,35 +16,50 @@
  1.3.1. [Inserção de dados](#Inserção-de-dados)  
  1.3.2. [Alteração de dados](#Alteração-de-dados)  
  1.3.3. [Remoção de dados](#Remoção-de-dados)  
- 1.3.4. [Vizualização de dados](#Vizualização-de-dados)  
+ 1.3.4. [Visualização de dados](#Visualização-de-dados)  
   
 * **1.4. [Funções](#Funções)**  
   1.4.1. [Funções existentes](#Funções-existentes)  
-  1.4.2. [Funções globais](#Funções-globais)  
-  1.4.3. [Funções do usuario](#Funções-do-usuario)  
+  1.4.2. [Funções do usuario](#Funções-do-usuario)  
   
 * **1.5. [Views](#Views)**  
   1.5.1. [Views existentes](#Views-existentes)  
+  1.5.2 [Views do usuario](#Views-do-usuario)
   
 * **1.6. [Procedures](#Procedures)**   
   1.6.1. [Procedures de visualização](#Procedures-de-visualização)  
   1.6.2. [Procedures de inserção](#Procedures-de-inserção)  
+  1.6.3 [Procedures do usuario](#Procedures-do-usuario)
   
 **2. [Modelagem](#Modelagem)**  
  * **2.1. [Modelo descritivo](#Modelo-descritivo)**  
  * **2.2. [Modelo logico](#Modelo-logico)**  
+
+**3.[Bibliografia e agradecimentos](#Bibliografia-e-agradecimentos)
   
 # Banco de dados  
 
 ## Sobre  
-
+SP-MedicalGroup é uma empresa fantasma(er.... eu acho) e esse banco de dados foi criado usando todo meu conhecimento em modelagem de banco de dados e foi programado em SQL.
 ### Arquitetura  
+O Banco possui as tabelas : [Tipo_Usuario](#Tipo_Usuario) , [Usuario](#Usuario),[Paciente](#Paciente) , [Especialidade](#Especialidade),[Clinica](#Clinica) e [Medico](#Medico)
+
+#### Tipo_Usuario  
+Ficarão todos os tipos de usuario (algo que seria mais ultil no back-end pra definir previlegios e essas coisas) é usado apenas pela tabela **Usuario**.
+#### Usuario  
+Tabela onde serão armazenados os usuarios , terão email , senha e um **Tipo de usuario**, o email deverá ser unico e essa tabela é referenciada nas tabelas **Paciente** e **Medico** *(Observação : para criar um administrador, **crie diretamente nessa tabela** e deixe o tipo dele como administrador)*
+#### Paciente  
+Tabela onde ficarão todos os pacientes (necessario ser um usuario)
+#### Especialidade  
+#### Clinica  
+#### Medico  
+#### Consulta  
 
 ### Ordem dos arquivos  
 Os arquivos iniciais tem um padrão a ser executado e o padrão é
-1. Criação das Tabelas : 
-2. Criação das Views : 
-3. Criação dos Procedures (seleção) :  
+1. Criação das Tabelas : [Criação.sql](https://github.com/Chingling152/SQL-SPMedgroup/blob/master/Essenciais/1-Cria%C3%A7%C3%A3o.sql)  
+2. Criação das Views : [Views.sql](https://github.com/Chingling152/SQL-SPMedgroup/blob/master/Essenciais/2-Views.sql)  
+3. Criação dos Procedures (seleção) :  [Procedures_de_seleção.sql](https://github.com/Chingling152/SQL-SPMedgroup/blob/master/Essenciais/3-Procedures_de_sele%C3%A7%C3%A3o.sql)
 4. Criação dos Procedures (inserção):
 5. Valores padrão (opcional) : 
 
@@ -53,7 +68,7 @@ O Arquivo [Criação.sql](#) contem todas as tabelas necessarias para criar toda
 
 ### Alterando tabelas  
 Você pode alterar qualquer valor da tabela antes de criar. **Porém deve ter bastante cuidado ao fazer isso** , pois irá prejudicar (ou inutilizar) muitas views , funções e inserts que usam alguns campos.  
-Você apenas podera usar views que usam todas as colunas sem especificação (\**Veja [Views](#Views)* ) , alterar as views existentes ou criar suas proprias views (Por favor se fizer isso , use o arquivo [Views.sql](#))  
+Você apenas podera usar views que usam todas as colunas sem especificação (\**Veja [Views](#Views)* ) , alterar as views existentes ou criar suas proprias views (Por favor se fizer isso , use o arquivo [Views.sql](https://github.com/Chingling152/SQL-SPMedgroup/blob/master/Essenciais/2-Views.sql))  
 
 ### Removendo tabelas  
 Caso queira remover qualquer tabela existente , apenas apague ela do arquivo Criação.sql .**Brincadeira , não faça isso você irá inutilizar o programa**. Você terá que reescrever **TODO** o codigo denovo , mesmo que remova uma tabela pequena.  
@@ -64,10 +79,11 @@ Mesmo assim, não é recomendado (a manutenção do codigo ficaria dificil).
 A unica exceção é caso você crie uma tabela baseada em **TipoUsuario**, (Exemplo : Administrador,Paciente e Medico)
 
 ## Dados  
-O Banco de dados tem valores padrões gerados em [InserçãoDefault.sql](#) são apenas alguns valores iniciais.  
+O Banco de dados tem valores padrões gerados em [Valores_iniciais.sql](#) são apenas alguns valores iniciais.  
 
 ### Inserção de dados
 Caso queira inserir dados, use o arquivo [Inserção.sql](#).  
+Ou use o arquivo Modelo_de_dados.xlsx importe ele usando o SQLServer caso queira alguns dados iniciais para teste (futuramente irei adicionar mais registros para testes de performace com bigdata)  
 Os dados do banco de dados podem ser tanto manipulados com [Procedures](#Procedures) (Recomendado) ou com **INSERT**(Não recomendado).  
 Antes de inserir os dados, veja que algumas tabelas dependem de valores em outras tabelas.  
 Então, pra facilitar o seu trabalho aqui tem uma tabela de prioridades (Ordem crescente):   
@@ -81,22 +97,22 @@ Então, pra facilitar o seu trabalho aqui tem uma tabela de prioridades (Ordem c
 #### Exemplo : 
 Para criar um **paciente**, Você teria ue ter um **usuario** para referenciar, mas cada **usuario** tem um **tipo de usuario**. Então para criar um paciente seria necessario antes, ter um usuario e um tipo de usuario.  
   
-Inserir dados diretamente usando **INSERT** pode deixar o codigo confuso, veja [Procedures](#Procedures)
+Inserir dados diretamente usando **INSERT** pode deixar o codigo confuso, veja [Procedures de inserção](#Procedures-de-inserção)
 
 ### Alteração de dados  
-
+Ainda não tem procedures para isso , então por enquanto use **UPDATE**
 ### Remoção de dados  
-
-### Vizualização de dados  
-
-## Funções
-
-### Funções existentes
-### Funções globais
-### Funções do usuario
+Mesmo motivo da alteração de dados , então por enquanto use **DELETE**
+### Visualização de dados  
+Para visualizar os dados de alguma tabela , você pode usar usar [Views](#Views) Criadas por você mesmo , ou ja feitas. Use isso para testar o banco de dados (qualquer problema, coloque como issue) .  
+**A seleção não afeta a integridade do banco de dados.**  
+## Funções  
+Esse banco de dados ainda não usa função mas , la pra frente vou pensar em retornar a idade e retornar toda vez que selecionar algum registro (usando trigger).  
+### Funções existentes  
+Nenhuma por agora...  
 
 ## Views  
-Views filtram suas seleções
+Views filtram suas seleções, escondem alguns dados irrelevantes (ou que não devem ser mostrados por questão de segurança)  
 ### Views existentes   
 Aqui ficarão todas as views e tudo que cada uma delas retorna.  
 Views sempre retornam  valores da tabela, mas filtram o que será enviado.  
@@ -137,6 +153,9 @@ Views sempre retornam  valores da tabela, mas filtram o que será enviado.
   - Endereço  
   - Numero  
   - CEP  
+ 
+### Views do usuario   
+Você pode criar suas proprias views no arquivo [Views_do_usuario.sql](#) (Ou não.... você pode fazer tudo em um arquivo se quiser), não há muito o que dizer, já existem views o suficiente no banco de dados (a não ser que você queira filtrar mais).  
 
 ## Procedures  
 Procedures são pequenas funções que executam um certo grupo de comandos, nesse banco de dados há varios procedures. Desde procedures apenas para visualização de dados, até procedures para inserção , alteração e remoção de dados.  
@@ -172,13 +191,39 @@ Retorna *TODOS*  os dados da View **VerPacientes** no usuario com o CPF
 #### **Utilizam a View [VerConsultas](#Views-existentes)**.  
 
 ### Procedures de inserção
-Procedures de inserção facilitam o trabalho e garantem que os dados serão inseridos corretamente, **Exemplo** : o Procedure para criação de paciente ja cria um usuario e cria o paciente ja anexado ao usuario.  
-* **Criar paciente** 
+Procedures de inserção facilitam o trabalho e garantem que os dados serão inseridos corretamente, **Exemplo** : o Procedure para criação de paciente ja cria um usuario e cria o paciente ja anexado ao usuario. Isso previne que varias pessoas herdem do mesmo usuario 
+* **Criar paciente**  
 *Parametros* :  
-  *  Email : Texto (até 200 caracteres)  
-  *  Senha : Texto (até 200 caracteres)  
-  *  Nome : Texto (até 200 caracteres)  
+  * Email : Texto (até 200 caracteres)  
+  * Senha : Texto (até 200 caracteres)  
+  * Nome : Texto (até 200 caracteres)  
   * CPF : Texto (Recomendado numeros) de 11 caracteres  
   * RG : Texto (Recomendado numeros) de 9 caracteres  
-  *  Telefone : Texto (Recomendado numeros) de 11 caracteres  
+  * Telefone : Texto (Recomendado numeros) de 11 caracteres  
   * Data de nascimento : Uma data valida (ano/mes/dia)  
+
+* **Criar medico**  
+*Parametros* :  
+  * Email : Texto (até 200 caracteres)  
+  * Senha : Texto (até 200 caracteres)  
+  * Nome : Texto (até 200 caracteres)  
+  * CRM : Texto (Recomendado numeros) de 7 caracteres  
+  * ID da clinica onde ele trabalha : Numero inteiro (o valor deve corresponder ao id de alguma registro na tabela **Clinica**)  
+  * ID da especialidade do medico : Numero inteiro (o valor deve corresponder a algum registro na tabela **Especialidade**)  
+   
+* **CriarAdmin**
+ *Parametros* :  
+  * Email : Texto (até 200 caracteres)  
+  * Senha : Texto (até 200 caracteres)  
+
+### Procedures do usuario
+Você pode criar procedures no arquivo [Procedures_do_usuario.sql](#)
+# Modelagem
+
+### Modelo descritivo
+
+### Modelo logico
+
+# Bibliografia e agradecimentos
+
+
