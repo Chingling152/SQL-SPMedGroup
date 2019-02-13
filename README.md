@@ -35,7 +35,7 @@
  * **2.1. [Modelo descritivo](#Modelo-descritivo)**  
  * **2.2. [Modelo logico](#Modelo-logico)**  
 
-**3.[Bibliografia e agradecimentos](#Bibliografia-e-agradecimentos)
+**3.[Bibliografia e agradecimentos](#Bibliografia-e-agradecimentos)**
   
 # Banco de dados  
 
