@@ -34,23 +34,25 @@
 **2. [Modelagem](#Modelagem)**  
  * **2.1. [Modelo descritivo](#Modelo-descritivo)**  
  * **2.2. [Modelo logico](#Modelo-logico)**  
-
-**3.[Bibliografia e agradecimentos](#Bibliografia-e-agradecimentos)**
   
 # Banco de dados  
 
 ## Sobre  
 SP-MedicalGroup é uma empresa fantasma(er.... eu acho) e esse banco de dados foi criado usando todo meu conhecimento em modelagem de banco de dados e foi programado em SQL.
 ### Arquitetura  
-O Banco possui as tabelas : [Tipo_Usuario](#Tipo_Usuario) , [Usuario](#Usuario),[Paciente](#Paciente) , [Especialidade](#Especialidade),[Clinica](#Clinica) e [Medico](#Medico)
+O Banco possui as tabelas : [Tipo_Usuario](#Tipo_Usuario) , [Usuario](#Usuario),[Paciente](#Paciente) , [Especialidade](#Especialidade) , [Clinica](#Clinica) e [Medico](#Medico)  
+Para ver melhor como as tabelas se relacionam veja o [Modelo descritivo](#Modelo-descritivo).
 
 #### Tipo_Usuario  
-Ficarão todos os tipos de usuario (algo que seria mais ultil no back-end pra definir previlegios e essas coisas) é usado apenas pela tabela **Usuario**.
+Ficarão todos os tipos de usuario (algo que seria mais ultil no back-end pra definir previlegios e essas coisas) é referencia apenas pela tabela **Usuario**.
 #### Usuario  
-Tabela onde serão armazenados os usuarios , terão email , senha e um **Tipo de usuario**, o email deverá ser unico e essa tabela é referenciada nas tabelas **Paciente** e **Medico** *(Observação : para criar um administrador, **crie diretamente nessa tabela** e deixe o tipo dele como administrador)*
+Tabela onde serão armazenados os usuarios , terão email , senha e um **Tipo de usuario**, o email deverá ser unico .  
+Essa tabela é referenciada nas tabelas **Paciente** e **Medico** *(Observação : para criar um administrador, **crie diretamente na tabela Usuario** e deixe o tipo dele como administrador)*
 #### Paciente  
-Tabela onde ficarão todos os pacientes (necessario ser um usuario)
+Tabela onde ficarão todos os pacientes (necessario ser um usuario)  
+Essa tabela é referenciada na tabela **Consulta**.
 #### Especialidade  
+Tabela onde ficarão todas as especialidades medicas
 #### Clinica  
 #### Medico  
 #### Consulta  
@@ -219,11 +221,13 @@ Procedures de inserção facilitam o trabalho e garantem que os dados serão ins
 ### Procedures do usuario
 Você pode criar procedures no arquivo [Procedures_do_usuario.sql](#)
 # Modelagem
-
+Aqui ficarão os modelos que usei para criar o banco de dados (não faz muito sentido criar modelo para um banco de dados*simples* mas é uma boa pratica (pra não sair codando e errando))
 ### Modelo descritivo
-
+O Modelo descritivo tem as ligações de ida e volta (use como exemplo ruas, o lado direito é a ida e o esquerdo é a volta ; Exemplo da **Clinica** : Ela possui **N medicos** (ida) e os Medicos podem apenas pertencer a uma **Clinica**)  
+PS: ignore o campo admnistrador **Não há tabela para administrador**  
+**Medico e o Paciente não referenciam a tabela TipoUsuario** e sim a **Usuario**
+![Modelo Conceitual](https://raw.githubusercontent.com/Chingling152/SQL-SPMedgroup/master/Modelos/ModelagemConceitual.png)
 ### Modelo logico
-
-# Bibliografia e agradecimentos
-
-
+Aqui está o exemplo do modelo logico do projeto (E o mais fiel ao resultado final)  
+Contem todas as tabelas e todas as colunas , as ligações são mostradas atraves das linahs de conexão (não tem ida e volta então fica um pouco dificil entender) porem tem o **PK** (Primary key : *Chave primaria*) e o **FK**(Foreign key : *Chave estrangeira*) assim da para saber qual tabela referencia qual.  
+![ModeloLogico](https://raw.githubusercontent.com/Chingling152/SQL-SPMedgroup/master/Modelos/ModelagemLogica.png)
