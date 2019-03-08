@@ -30,6 +30,7 @@
 **2. [Modelagem](#Modelagem)**  
  * 2.1. [Modelo descritivo](#Modelo-descritivo)  
  * 2.2. [Modelo logico](#Modelo-logico)  
+ * 2.3. [Modelo fisico/final](#Modelo-fisico)  
   
 # Banco de dados  
 
@@ -39,10 +40,8 @@ SP-MedicalGroup é uma empresa fantasma(er.... eu acho) e esse banco de dados fo
 O Banco possui as tabelas : [Tipo_Usuario](#Tipo_Usuario) , [Usuario](#Usuario),[Paciente](#Paciente) , [Especialidade](#Especialidade) , [Clinica](#Clinica) e [Medico](#Medico)  
 Para ver melhor como as tabelas se relacionam veja o [Modelo descritivo](#Modelo-descritivo).
 
-#### Tipo_Usuario  
-Ficarão todos os tipos de usuario (algo que seria mais ultil no back-end pra definir previlegios e essas coisas) é referencia apenas pela tabela **Usuario**.
 #### Usuario  
-Tabela onde serão armazenados os usuarios , terão email , senha e um **Tipo de usuario**, o email deverá ser unico .  
+Tabela onde serão armazenados os usuarios , terão email , senha e um **Nivel de privilegio do usuario** (1 = Usuario , 2 = Medico , 100 = Administrador), o email deverá ser unico .  
 Essa tabela é referenciada nas tabelas **Paciente** e **Medico** *(Observação : para criar um administrador, **crie diretamente na tabela Usuario** e deixe o tipo dele como administrador)*
 #### Paciente  
 Tabela onde ficarão todos os pacientes (depende de um valor de referencia em Usuario)  
@@ -89,7 +88,7 @@ Os dados do banco de dados podem ser tanto manipulados com [Procedures](#Procedu
 Antes de inserir os dados, veja que algumas tabelas dependem de valores em outras tabelas.  
 Então, pra facilitar o seu trabalho aqui tem uma tabela de prioridades (Ordem crescente):   
 
-1. Tipo De Usuario \ Especialidade \ Clinica  
+1. Especialidade \ Clinica  
 2. Usuario  
 3. Paciente \ Medico  
 4. Clinica  
@@ -219,12 +218,14 @@ Procedures de inserção facilitam o trabalho e garantem que os dados serão ins
 Você pode criar procedures no arquivo [Procedures_do_usuario.sql](https://github.com/Chingling152/SQL-SPMedgroup/blob/master/UserBuild/Procedures_do_usuario.sql)
 # Modelagem
 Aqui ficarão os modelos que usei para criar o banco de dados (não faz muito sentido criar modelo para um banco de dados*simples* mas é uma boa pratica (pra não sair codando e errando))
-### Modelo descritivo
+### Modelo conceitual
 O Modelo descritivo tem as ligações de ida e volta (use como exemplo ruas, o lado direito é a ida e o esquerdo é a volta ; Exemplo da **Clinica** : Ela possui **N medicos** (ida) e os Medicos podem apenas pertencer a uma **Clinica**)  
-PS: ignore o campo admnistrador **Não há tabela para administrador**  
-**Medico e o Paciente não referenciam a tabela TipoUsuario** e sim a **Usuario**
 ![Modelo Conceitual](https://raw.githubusercontent.com/Chingling152/SQL-SPMedgroup/master/Modelos/ModelagemConceitual.png)
 ### Modelo logico
 Aqui está o exemplo do modelo logico do projeto (E o mais fiel ao resultado final)  
 Contem todas as tabelas e todas as colunas , as ligações são mostradas atraves das linahs de conexão (não tem ida e volta então fica um pouco dificil entender) porem tem o **PK** (Primary key : *Chave primaria*) e o **FK**(Foreign key : *Chave estrangeira*) assim da para saber qual tabela referencia qual.  
+Removi a tabela de administradores , pois eles não carregavam nada de especial então não havia necessidade de um banco de dados só para um usuario com o valor diferente
 ![ModeloLogico](https://raw.githubusercontent.com/Chingling152/SQL-SPMedgroup/master/Modelos/ModelagemLogica.png)
+### Modelo fisico
+O modelo fisico é como o banco de dados ficou (Removi a tabela de Tipo usuarios pois descobri que poderia usar uma enumeração).
+![Modelo fisico](https://raw.githubusercontent.com/Chingling152/SQL-SPMedgroup/master/Modelos/ModelagemFisica.png)
