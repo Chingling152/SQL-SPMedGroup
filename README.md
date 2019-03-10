@@ -62,6 +62,7 @@ Os arquivos iniciais tem um padrão a ser executado e o padrão é
 3. Criação dos Procedures (seleção) :  [Procedures_de_seleção.sql](https://github.com/Chingling152/SQL-SPMedgroup/blob/master/Essenciais/3-Procedures_de_sele%C3%A7%C3%A3o.sql)  
 4. Criação dos Procedures (inserção): [Procedures_de_inserção.sql](https://github.com/Chingling152/SQL-SPMedgroup/blob/master/Essenciais/4-%20Procedures_de_inser%C3%A7%C3%A3o.sql)  
 5. Valores padrão (opcional) : [Valores_iniciais.sql](https://github.com/Chingling152/SQL-SPMedgroup/blob/master/Essenciais/5-Valores_iniciais.sql)  
+Tambem pode se usar o arquivo [Modelo_de_dados.xlsx](https://github.com/Chingling152/SQL-SPMedgroup/blob/master/Essenciais/Modelo_de_dados.xlsx) para inserir o valores iniciais (manualmente ou importando para o SQL Management Studio)
 
 ## Tabelas  
 O Arquivo [Criação.sql](https://github.com/Chingling152/SQL-SPMedgroup/blob/master/Essenciais/1-Cria%C3%A7%C3%A3o.sql) contem todas as tabelas necessarias para criar todas as tabelas, a ordem está de cima para baixo então, apenas execute todas as linhas de uma vez (pra poupar trabalho).Alem disso, o arquivo Criação.sql **deve ser o primeiro a ser executado** porque nele há o comando principal pra criação do banco de dados (**CREATE DATABASE**).  
@@ -228,4 +229,4 @@ Removi a tabela de administradores , pois eles não carregavam nada de especial 
 ![ModeloLogico](https://raw.githubusercontent.com/Chingling152/SQL-SPMedgroup/master/Modelos/ModelagemLogica.png)
 ### Modelo fisico
 O modelo fisico é como o banco de dados ficou (Removi a tabela de Tipo usuarios pois descobri que poderia usar uma enumeração).
-![Modelo fisico](https://raw.githubusercontent.com/Chingling152/SQL-SPMedgroup/master/Modelos/ModelagemFisica.png)
+![Modelo fisico](https://raw.githubusercontent.com/Chingling152/SQL-SPMedgroup/master/Modelos/ModelagemFisica.PNG)
