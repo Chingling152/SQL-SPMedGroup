@@ -1,68 +1,49 @@
---- PROCEDURES ---
---- Procura ---
---Procurar medico por ID e retorna o nome e o CRM
-CREATE PROCEDURE ProcurarMedicoPorID @ID INT
+/**************************************************
+**  Esses metodos s�o usados para facilitar a    **
+**  conex�o do programador com o banco de dados  **
+**  (pois evita faze-lo decorar comandos)        **
+***************************************************/
+
+--- Busca um usuario pelo ID ---
+CREATE PROCEDURE BuscarUsuario @ID INT
 AS
 BEGIN
-SELECT MED.NOME,MED.CRM FROM VerMedicos AS MED WHERE MED.ID = @ID;
+SELECT * FROM VerUsuarios WHERE ID = @ID;
 END
+GO
 
--- Retorna todas as informações do Medico
-CREATE PROCEDURE VerTudoMedico @ID INT
+--- Busca um Paciente pelo ID ---
+CREATE PROCEDURE BuscarPaciente @ID INT
 AS
 BEGIN
-SELECT * FROM VerMedicos AS MED WHERE MED.ID = @ID;
+SELECT * FROM VerPacientes WHERE PACIENTE = @ID;
 END
+GO
 
--- Retorna o nome e o email do medico
-CREATE PROCEDURE ProcurarUsuarioMedico @ID INT
+--- Busca um Medico pelo ID---
+CREATE PROCEDURE BuscarPaciente @ID INT
 AS
 BEGIN
-SELECT MED.NOME,MED.EMAIL,MED.PRIVILEGIOS FROM VerMedicos AS MED WHERE MED.ID = @ID;
+SELECT * FROM VerMedicos WHERE MEDICO = @ID;
 END
+GO
 
---Procurar medico por ID e retorna o nome e o CRM
-CREATE PROCEDURE ProcurarMedicoPorCRM @CRM INT
+--- Busca uma Clinica pelo ID---
+CREATE PROCEDURE BuscarClinica @ID INT
 AS
 BEGIN
-SELECT *FROM VerMedicos AS MED WHERE MED.CRM = @CRM;
+SELECT * FROM Clinica WHERE ID = @ID;
 END
+GO
 
-/*Procurar paciente*/
-
--- Procurar Nome,CPF e RG do paciente no ID selecionado
-CREATE PROCEDURE ProcurarPacientePorID @ID INT
+--- Busca uma Consulta Pelo ID Da Clinica ---
+CREATE PROCEDURE BuscarConsulta @ID INT
 AS
 BEGIN
-SELECT PAC.NOME,PAC.CPF,PAC.RG FROM VerPacientes AS PAC WHERE PAC.ID = @ID;
+SELECT * FROM VerConsulta WHERE ID = @ID;
 END
+GO
 
--- Procurar todas as informações do paciente no ID selecionado
-CREATE PROCEDURE VerTudoPaciente @ID INT
-AS
-BEGIN
-SELECT * FROM VerPacientes WHERE ID = @ID;
-END
+--- Busca uma Consulta Pelo ID Do Paciente ---
 
-
--- Procurar nome e email do usuario com o ID selecionado
-CREATE PROCEDURE ProcuraUsuarioPaciente @ID INT
-AS
-BEGIN
-SELECT PAC.NOME,PAC.EMAIL,PAC.PRIVILEGIOS FROM VerPacientes AS PAC WHERE PAC.ID = @ID;
-END
-
--- Procurar todas as informações do paciente com o ID selecionado
-CREATE PROCEDURE ProcurarPacientePorCPF @CPF CHAR(10) 
-AS
-BEGIN
-SELECT * FROM VerPacientes AS PAC WHERE PAC.CPF = @CPF;
-END
-
-/*Procurar clinica*/
--- Retorna todas as informações da clinica
-CREATE PROCEDURE ProcurarClinicaPorID @ID INT
-AS 
-BEGIN
-SELECT * FROM VerClinicas WHERE ID = @ID;
-END
+--- Busca uma Consulta Pelo ID Do Medico ---
