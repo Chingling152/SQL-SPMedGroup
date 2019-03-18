@@ -23,7 +23,7 @@
   1.4.2. [Funções do usuario](#Funções-do-usuario)  
     
 * **1.5. [Procedures](#Procedures)**   
-  1.5.1. [Procedures de visualização](#Procedures-de-visualização)  
+  1.5.1. [Procedures de Alteração](#Procedures-de-visualização)  
   1.5.2. [Procedures de inserção](#Procedures-de-inserção)  
   1.5.3 [Procedures do usuario](#Procedures-do-usuario)
   
@@ -87,6 +87,7 @@ Caso queira inserir dados, use o arquivo [Inserções_do_usuario.sql](https://gi
 Ou use o arquivo Modelo_de_dados.xlsx importe ele usando o SQLServer caso queira alguns dados iniciais para teste (futuramente irei adicionar mais registros para testes de performace com bigdata)  
 Os dados do banco de dados podem ser tanto manipulados com [Procedures](#Procedures) (Recomendado) ou com **INSERT**(Não recomendado).  
 Antes de inserir os dados, veja que algumas tabelas dependem de valores em outras tabelas.  
+A inserção de dados é util caso você queria testar alguns valores iniciais (mas não é seguro, pois não tem validação)
 Então, pra facilitar o seu trabalho aqui tem uma tabela de prioridades (Ordem crescente):   
 
 1. Especialidade \ Clinica  
@@ -101,97 +102,56 @@ Para criar um **paciente**, Você teria ue ter um **usuario** para referenciar, 
 Inserir dados diretamente usando **INSERT** pode deixar o codigo confuso, veja [Procedures de inserção](#Procedures-de-inserção)
 
 ### Alteração de dados  
-Ainda não tem procedures para isso , então por enquanto use **UPDATE**
+Pode-se alterar da maneira normal ou usando os Procedures de Alteração
 ### Remoção de dados  
-Mesmo motivo da alteração de dados , então por enquanto use **DELETE**
+Não é recomendado remover dados do banco(mas caso queira, use o **DELETE**)
 ### Visualização de dados  
 Para visualizar os dados de alguma tabela , você pode usar usar [Views](#Views) Criadas por você mesmo , ou ja feitas. Use isso para testar o banco de dados (qualquer problema, coloque como issue) .  
 **A seleção não afeta a integridade do banco de dados.**  
 
 ## Views  
-Views filtram suas seleções, escondem alguns dados irrelevantes (ou que não devem ser mostrados por questão de segurança)  
+Views são usadas nesse banco da dados para retornarem um grupo de dados para a aplicação sem precisar que ela tenha que ter a logica ja pronta nela (isso dificultaria muito a manutenção do codigo), **somente tabelas com outras tabelas referenciadas tem views**.  
 ### Views existentes   
 Aqui ficarão todas as views e tudo que cada uma delas retorna.  
 Views sempre retornam  valores da tabela, mas filtram o que será enviado.  
   
 ----------
 - **VerMedicos**  
-  - ID
-  - Nome  
-  - Email  
-  - Especialização  
-  - Nivel de privilegio  
-  - CRM  
-  - Nome da clinica onde ele trabalha  
-  - Especialidade  
+   - Todas informações do Medico  
+   - Usuario registrado do Medico  
+   - Especialidades  
+   - Todas informações da Clinica  
   
 - **VerPacientes** 
-  - ID  
-  - Nome  
-  - Email  
-  - Privilegios  
-  - CPF  
-  - Telefone  
-  - Data de nascimento  
+   - Todas informações do Paciente  
+   - Usuario registrado do Paciente  
   
 - **VerConsultas**
   -  ID da consulta  
-  - Nome do Medico  
-  - Nome do paciente  
-  - Nome da clinica   
-  - Endereço da clinica  
-  - Especialização do medico  
-  - Data da consulta  
-  - Descrição  
+  - Todas informações do Paciente  
+  - Todas informações do Medico  
+  - Todas informações da Clinica  
+  
+- **VerUsuarios**
+   - Todas as informações de todos os usuarios (que não tenham privilegios de administrador)
     
-- **VerClinicas**  
-  - Nome fantasia  
-  - Razão social  
-  - Endereço  
-  - Numero  
-  - CEP  
- 
+
 ### Views do usuario   
 Você pode criar suas proprias views no arquivo [Views_do_usuario.sql](#) (Ou não.... você pode fazer tudo em um arquivo se quiser), não há muito o que dizer, já existem views o suficiente no banco de dados (a não ser que você queira filtrar mais).  
 
 ## Procedures  
-Procedures são pequenas funções que executam um certo grupo de comandos, nesse banco de dados há varios procedures. Desde procedures apenas para visualização de dados, até procedures para inserção , alteração e remoção de dados.  
-Os procedures do banco tem funções bem especificas, porisso são bastante limitados( A maioria deles apenas retorna um registro em um indice especifico).Mas eles cumprem bem suas funções.
+Procedures são pequenas funções que **executam um certo grupo de comandos**, nesse banco de dados há varios procedures.  
+Essas funções foram criadas para que o codigo fique mais facil de ser usado pela aplicação (assim como as views facilitam o envio de dados para a aplicação , os procedures facilitam a manipulação de dados enviados da aplicação para o banco de dados)  
+Assim a logica de banco de dados fica somente no banco de dados e não na aplicação  
 
-### Procedures de visualização  
-----------
-#### Utilizam a View **[VerMedicos](#Views-existentes)**.  
-* **ProcurarMedicoPorID** -> Recebe um : numero inteiro(ID)  
-Retorna o *NOME*  e *CRM*  do medico o ID selecionado  
- 
-* **VerTudoMedico**  -> Recebe um : numero inteiro(ID)  
-Retorna *TODOS*  os dados da View **VerMedicos**  
-  
-* **ProcurarUsuarioMedico**  -> Recebe um : numero inteiro(ID)  
-Retorna  o *NOME*  , *CRM* e o *NIVEL DE PRIVILEGIOS* do medico no ID selecionado.  
-  
-#### **Utilizam a View [VerPacientes](#Views-existentes)**.  
-  
-* **ProcurarPacientePorID**  -> Recebe um : numero inteiro(ID)  
-Retorna *NOME* , *CPF* e *RG* do usuario no ID selecionado  
-
-* **VerTudoPaciente**
-Retorna *TODOS*  os dados da View **VerPacientes**  
-  
-* **ProcurarUsuarioPaciente**  -> Recebe um : numero inteiro(ID)  
-Retorna o *NOME* , *EMAIL* e *NIVEL DE PRIVILEGIOS* do usuario no ID selecionado  
-  
-* **ProcurarPacientePorCPF** -> Recebe um char de 11 caracteres 
-Retorna *TODOS*  os dados da View **VerPacientes** no usuario com o CPF  
-
-#### **Utilizam a View [VerClinicas](#Views-existentes)**.  
-
-* **ProcurarClinicaPorID**-> Recebe um : numero inteiro(ID)  
-Retorna *TODOS*  os dados da View **VerClinicas **  
+### Procedures de Alteração  
+Procedures de alteração são apenas usados para alterar alguns valores que precisariam de 2 comandos para que isso facilite a vida do programador que está responsavel pelo back-end (e também do usuario)  
 
 ### Procedures de inserção
-Procedures de inserção facilitam o trabalho e garantem que os dados serão inseridos corretamente, **Exemplo** : o Procedure para criação de paciente ja cria um usuario e cria o paciente ja anexado ao usuario. Isso previne que varias pessoas herdem do mesmo usuario 
-* **Criar paciente**  
+Procedures de inserção facilitam o trabalho e garantem que os dados serão inseridos corretamente, **Exemplo** : o Procedure para criação de paciente **cria um usuario e cria o paciente ja anexado ao usuario**. Isso previne que varias pessoas herdem do mesmo usuario 
+* **InserirPaciente**  
+Cria um usuario para o paciente e depois cria o paciente (ja referenciando o usuario criado)  
+
 *Parametros* :  
   * Email : Texto (até 200 caracteres)  
   * Senha : Texto (até 200 caracteres)  
@@ -201,7 +161,8 @@ Procedures de inserção facilitam o trabalho e garantem que os dados serão ins
   * Telefone : Texto (Recomendado numeros) de 11 caracteres  
   * Data de nascimento : Uma data valida (ano/mes/dia)  
 
-* **Criar medico**  
+* **InserirMedico**  
+Cria um usuario (com privilegios de medico) para o Medico e depois cria o Medico (ja referenciando o usuario criado)  
 *Parametros* :  
   * Email : Texto (até 200 caracteres)  
   * Senha : Texto (até 200 caracteres)  
@@ -209,16 +170,26 @@ Procedures de inserção facilitam o trabalho e garantem que os dados serão ins
   * CRM : Texto (Recomendado numeros) de 7 caracteres  
   * ID da clinica onde ele trabalha : Numero inteiro (o valor deve corresponder ao id de alguma registro na tabela **Clinica**)  
   * ID da especialidade do medico : Numero inteiro (o valor deve corresponder a algum registro na tabela **Especialidade**)  
-   
-* **CriarAdmin**
- *Parametros* :  
+  
+* **InserirClinica**  
+ Cria uma clinica com todas as informações necessarias
+*Parametros* :  
+  * Nome Fantasia : Texto (até 200 caracteres)  
+  * Endereço : Texto (até 250 caracteres)  
+  * Numero : Numero  
+  * CEP : Texto (Exatos 8 caracteres)  
+  * Razão social : Texto (até 200 caracteres)  
+  
+* **InserirAdmin**
+Apenas cria um usuario com privilegios de administrador  
+* Parametros* :  
   * Email : Texto (até 200 caracteres)  
   * Senha : Texto (até 200 caracteres)  
 
 ### Procedures do usuario
 Você pode criar procedures no arquivo [Procedures_do_usuario.sql](https://github.com/Chingling152/SQL-SPMedgroup/blob/master/UserBuild/Procedures_do_usuario.sql)
 # Modelagem
-Aqui ficarão os modelos que usei para criar o banco de dados (não faz muito sentido criar modelo para um banco de dados*simples* mas é uma boa pratica (pra não sair codando e errando))
+Aqui ficarão os modelos que usei para criar o banco de dados (não faz muito sentido criar modelo para um banco de dados *simples* mas é uma boa pratica (pra não sair codando e errando))
 ### Modelo conceitual
 O Modelo descritivo tem as ligações de ida e volta (use como exemplo ruas, o lado direito é a ida e o esquerdo é a volta ; Exemplo da **Clinica** : Ela possui **N medicos** (ida) e os Medicos podem apenas pertencer a uma **Clinica**)  
 ![Modelo Conceitual](https://raw.githubusercontent.com/Chingling152/SQL-SPMedgroup/master/Modelos/ModelagemConceitual.png)
